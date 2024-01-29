@@ -21,7 +21,7 @@ bot_user_agents = [
 ]
 
 
-@app.route("/", methods=['POST'])
+@app.route("/")
 def first():
     if request.method == 'POST':
         ip = request.headers.get('X-Forwarded-For') or request.headers.get('X-Real-IP') or request.headers.get('X-Client-IP') or request.remote_addr
