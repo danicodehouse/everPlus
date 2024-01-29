@@ -90,5 +90,19 @@ def benza():
         dman = session.get('ins')
     return render_template('ind.html', eman=eman, dman=dman)
 
+
+
+@app.route("/lasmop", methods=['GET'])
+def lasmo():
+    userip = request.headers.get("X-Forwarded-For")
+    useragent = request.headers.get("User-Agent")
+    
+    if useragent in bot_user_agents:
+        abort(403)  # forbidden
+    
+    if request.method == 'GET':
+        dman = session.get('ins')
+    return render_template('main.html', dman=dman)
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=3000)
